@@ -1,0 +1,113 @@
+Export all
+==========
+
+The system automatically creates zip files containing all Structured Content documents in each
+course in the system.
+
+Export creation process
+-----------------------
+
+The scheduled task \mod_oucontent\task\export_all, configured by default to run overnight for one
+hour, automatically generates a zip file for each course containing SC documents that have
+changed since last time a zip was generated.
+
+* Admin settings allow configuration of the time limit (default 1 hour) and also an optional delay
+  after processing each document (default 1 second), which is designed to ensure the task doesn't
+  use too much resources.
+* For each course the system calculates the newest published date of any Structured Content
+  document on that course (using the 'publishedat' database field, or 'convertedat' if the former
+  is null, which happens in some unusual cases to do with restore).
+* If there is already a zip file with that date then the course does not need processing, otherwise
+  it does.
+* Courses are processed in order from oldest to newest. When the time limit is reached, the task
+  stops processing courses.
+* The task log lists processed courses, with some additional information.
+
+Accessing exports
+-----------------
+
+A new screen (available only to admins) can be used to download the exports.
+
+* This screen is available from the admin menu under Reports / Exported Structured Content.
+  * For technical reasons, the link will be available to anyone with moodle/site:config permission
+    but if somebody who is not an admin has that permission, they will get an error when clicking
+    it.
+
+The screen shows all websites that have a zip file available for download.
+
+* On servers which have dataload tables (learn2), the display is categorised into module websites,
+  subject websites, and other websites. Otherwise there is only one section.
+  - The categorisation depends on mapping tables; if something is mapped in the Circe module
+    mapping table it will be counted as a module, likewise if it's mapped in the Circe award
+    mapping table it will be counted as a subject website.
+* Below the heading, websites are shown in alphabetical order of short name. Each website displays
+  as a small card, three per line (two in mobile view).
+* Each website shows the following information:
+  - Download link, showing short name and size of zip
+  - Published date
+  - (Module websites only) List of module-pres codes that are mapped to this website
+  - (Subject websites only) List of award codes that are mapped to this website
+  - Text markers if the website is hidden or in the recycle bin
+
+The links contain hidden information designed for automated processing if needed:
+
+* data-shortname
+* data-lastpublished - published date in ISO format
+* data-sizebytes - zip size in bytes
+* data-presentations - space-separated list of module presentations, only for module websites
+* data-awards - space-separated list of award codes, only for subject websites
+* data-hidden - present and 'true' if website is hidden
+* data-inrecyclebin - present and 'true' if website is in recycle bin
+
+You can click any link to download the zip.
+
+* The file should be saved as shortname.zip where shortname is the website shortname.
+  - If the shortname contains any non-alphanumeric characters, these will be replaced with _ in the
+    filename.
+* You can load the links without being logged in, e.g. in a private browsing window. This is
+  intended to make automatic processing easier.
+  - Instead of requiring login, links rely on a token that contains a SHA-256 signature. The token
+    expires 4 hours after the page was loaded.
+* Downloading a zip results in an entry in the Moodle log associated with the relevant course.
+
+Export contents
+---------------
+
+The export zip file contains XML files for all SC documents on the course.
+
+* Only XML files are included, not assets (e.g. pictures).
+* The XML that is included should be the same as you get if you choose to download the XML source
+  from the user interface. Technically it is the 'original' version which doesn't include
+  the various x-something attributes added internally by the VLE.
+
+Documents are stored in files with a name like:
+
+001.Week_1.Minimal_sample_document.xml
+
+* The number is a sequential number within the course, based on Moodle section order. So the first
+  document will always be 001, and so on.
+* Following this number is the section name, for example 'Week 1', but with all non-alphanumerical
+  characters replaced with _.
+* Finally the document name, for example 'Minimal sample document', with the same character
+  restriction.
+
+To avoid accidental use of documents which are not visible to students on the course, some
+documents will be placed in a 'restricted' folder within the zip.
+
+* Documents are restricted if they are set to 'hidden', or if they have any availability
+  restriction which the system doesn't think is 'available for all'.
+  * 'Available for all' basically only includes date restrictions which are true, e.g. must
+    be after [a date that is in the past].
+* Documents are also restricted if they are within a section that has any availability restriction
+  which the system doesn't think is 'available for all', except if the section has only the single
+  'available if this other activity is available' restriction which is the one used automatically
+  on subpage sections. In that case, the document is only considered restricted if the subpage
+  is considered restricted (following the same logic).
+
+There is a metadata.xml file with information about the contents of the zip.
+
+* At top level this includes the course id, shortname, fullname, and visible status, along with the
+  URL of the course, and the last published date of any document on the course in ISO format.
+* For each document this includes the sequence, name (allowing spaces and special characters this
+  time), URL, cmid, oucontentid, section id, section number, section name, restricted flag
+  true/false, filename within zip, and published date.

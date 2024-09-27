@@ -1,0 +1,93 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template mod_oucontent/export_all_list
+
+    Classes required for JS:
+
+    Data attibutes required for JS:
+
+    Context variables required for this template:
+
+    Example context (json):
+    {
+        "modules": [
+        ],
+        "subjects": [
+        ],
+        "other": [
+            {
+                "shortname": "X123-24J",
+                "hidden": false,
+                "inrecyclebin": false,
+                "lastpublished": 1234567890,
+                "lastpublishedtime": "2020-01-01T00:00:00+08:00",
+                "size": "4.3 MB",
+                "sizebytes": 1234,
+                "downloadurl": "https://example.org/",
+                "haspresentations": false,
+                "presentations": [],
+                "hasawards": false,
+                "awards": []
+            },
+        ],
+        "hasmodules": false,
+        "hassubjects": false,
+        "hasother": true,
+        "hasmodulesorsubjects": false
+    }
+}}
+<h2>{{#str}}exportallviewheading, mod_oucontent{{/str}}</h2>
+<p>{{#str}}exportallviewinfo, mod_oucontent{{/str}}</p>
+
+{{#hasmodules}}
+    <section id="oucontent-modules">
+        <h3>{{#str}}exportallmodulesheading, mod_oucontent{{/str}}</h3>
+        <ul class="oucontent-exportalllist">
+            {{#modules}}
+                {{> mod_oucontent/export_all_item}}
+            {{/modules}}
+        </ul>
+    </section>
+{{/hasmodules}}
+
+{{#hassubjects}}
+    <section id="oucontent-subjects">
+        <h3>{{#str}}exportallsubjectsheading, mod_oucontent{{/str}}</h3>
+        <ul class="oucontent-exportalllist">
+            {{#subjects}}
+                {{> mod_oucontent/export_all_item}}
+            {{/subjects}}
+        </ul>
+    </section>
+{{/hassubjects}}
+
+{{#hasother}}
+    <section id="oucontent-other">
+        {{#hasmodulesorsubjects}}
+            <h3>{{#str}}exportallotherheading, mod_oucontent{{/str}}</h3>
+        {{/hasmodulesorsubjects}}
+        {{^hasmodulesorsubjects}}
+            <h3>{{#str}}exportallwebsitesheading, mod_oucontent{{/str}}</h3>
+        {{/hasmodulesorsubjects}}
+        <ul class="oucontent-exportalllist">
+            {{#other}}
+                {{> mod_oucontent/export_all_item}}
+            {{/other}}
+        </ul>
+    </section>
+{{/hasother}}
