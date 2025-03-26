@@ -97,14 +97,13 @@ class qtype_match_override_renderer extends \qtype_match_renderer {
 
             // Modification starts.
             // Comment out core code.
-//            $result .= html_writer::tag('td',
-//                    html_writer::label(get_string('answer', 'qtype_match', $i),
-//                            'menu' . $qa->get_qt_field_name('sub' . $key), false,
-//                            array('class' => 'accesshide')) .
-//                    html_writer::select($choices, $qa->get_qt_field_name('sub' . $key), $selected,
-//                            array('0' => 'choose'), array('disabled' => $options->readonly, 'class' => 'custom-select ml-1')) .
-//                    ' ' . $feedbackimage, array('class' => $classes));
-            //
+            // $result .= html_writer::tag('td',
+            // html_writer::label(get_string('answer', 'qtype_match', $i),
+            // 'menu' . $qa->get_qt_field_name('sub' . $key), false,
+            // array('class' => 'accesshide')) .
+            // html_writer::select($choices, $qa->get_qt_field_name('sub' . $key), $selected,
+            // array('0' => 'choose'), array('disabled' => $options->readonly, 'class' => 'custom-select ml-1')) .
+            // ' ' . $feedbackimage, array('class' => $classes));
 
             $result .= html_writer::tag('td', $choiceslist, ['class' => $classes]);
             // Modification ends.

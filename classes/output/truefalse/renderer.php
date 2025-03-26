@@ -92,16 +92,16 @@ class qtype_truefalse_override_renderer extends \qtype_truefalse_renderer {
         $falsefeedbackimg = '';
         // Modification starts.
         // Comment out core code.
-//        if ($options->correctness) {
-//            if ($truechecked) {
-//                $trueclass = ' ' . $this->feedback_class((int) $question->rightanswer);
-//                $truefeedbackimg = $this->feedback_image((int) $question->rightanswer);
-//            } else if ($falsechecked) {
-//                $falseclass = ' ' . $this->feedback_class((int) (!$question->rightanswer));
-//                $falsefeedbackimg = $this->feedback_image((int) (!$question->rightanswer));
-//            }
-//        }
-        //
+        // if ($options->correctness) {
+        // if ($truechecked) {
+        // $trueclass = ' ' . $this->feedback_class((int) $question->rightanswer);
+        // $truefeedbackimg = $this->feedback_image((int) $question->rightanswer);
+        // } else if ($falsechecked) {
+        // $falseclass = ' ' . $this->feedback_class((int) (!$question->rightanswer));
+        // $falsefeedbackimg = $this->feedback_image((int) (!$question->rightanswer));
+        // }
+        // }
+
         $truefeedback = '';
         $falsefeedback = '';
         if ($options->correctness) {
@@ -136,17 +136,16 @@ class qtype_truefalse_override_renderer extends \qtype_truefalse_renderer {
         $result = '';
         $result .= html_writer::tag('div', $question->format_questiontext($qa), ['class' => 'qtext']);
 
-        $result .= html_writer::start_tag('div', array('class' => 'ablock'));
+        $result .= html_writer::start_tag('div', ['class' => 'ablock']);
         $result .= html_writer::tag('div', get_string('selectone', 'qtype_truefalse'), ['class' => 'prompt']);
 
         $result .= html_writer::start_tag('div', ['class' => 'answer']);
         // Modification starts.
         // Comment out core code.
-//        $result .= html_writer::tag('div', $radiotrue . ' ' . $truefeedbackimg,
-//                array('class' => 'r0' . $trueclass));
-//        $result .= html_writer::tag('div', $radiofalse . ' ' . $falsefeedbackimg,
-//                array('class' => 'r1' . $falseclass));
-        //
+        // $result .= html_writer::tag('div', $radiotrue . ' ' . $truefeedbackimg,
+        // array('class' => 'r0' . $trueclass));
+        // $result .= html_writer::tag('div', $radiofalse . ' ' . $falsefeedbackimg,
+        // array('class' => 'r1' . $falseclass));
         $result .= html_writer::tag('div', $radiotrue . ' ' . $truefeedbackimg . ' ' . $truefeedback,
                 ['class' => 'r0' . $trueclass]);
         $result .= html_writer::tag('div', $radiofalse . ' ' . $falsefeedbackimg . ' ' . $falsefeedback,

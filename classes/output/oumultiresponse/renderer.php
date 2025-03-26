@@ -73,13 +73,13 @@ class qtype_oumultiresponse_override_renderer extends \qtype_oumultiresponse_ren
             $inputattributes['id'] = $this->get_input_id($qa, $value);
             // Modification starts.
             // Comment out core code.
-//            $isselected = $question->is_choice_selected($response, $value);
-//            if ($isselected) {
-//                $inputattributes['checked'] = 'checked';
-//            } else {
-//                unset($inputattributes['checked']);
-//            }
-            //
+            // $isselected = $question->is_choice_selected($response, $value);
+            // if ($isselected) {
+            // $inputattributes['checked'] = 'checked';
+            // } else {
+            // unset($inputattributes['checked']);
+            // }
+
             $inputattributes['checked'] = 'checked';
             // Modification ends.
             $hidden = '';

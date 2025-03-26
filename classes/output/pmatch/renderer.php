@@ -48,7 +48,7 @@ class qtype_pmatch_override_renderer extends \qtype_pmatch_renderer {
      */
     public function question_tests_link(qtype_pmatch_question $question, question_display_options $options): string {
         // Do not show the question test link.
-        return;
+        return '';
     }
 
 }
