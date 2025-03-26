@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-namespace mod_oucontent;
+namespace quiz_answersheets;
 
 use mod_oucontent\task\export_all;
 
@@ -22,11 +22,11 @@ use mod_oucontent\task\export_all;
  * Tests exporting all structure content documents for a course into a zip file.
  *
  * @covers \mod_oucontent\task\export_all
- * @package mod_oucontent
+ * @package quiz_answersheets
  * @copyright 2024 The Open University
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class export_all_test extends \advanced_testcase {
+final class export_all_test extends \advanced_testcase {
 
     /**
      * Tests {@see export_all::get_filename_safe()}.
@@ -55,7 +55,7 @@ class export_all_test extends \advanced_testcase {
     /**
      * Tests {@see export_all::is_restricted()}.
      */
-    public function test_is_restricted():  void {
+    public function test_is_restricted(): void {
         global $DB;
         $this->resetAfterTest();
 

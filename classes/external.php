@@ -29,6 +29,9 @@ defined('MOODLE_INTERNAL') || die;
 require_once("$CFG->libdir/externallib.php");
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 
+/**
+ * External API class.
+ */
 class quiz_answersheets_external extends external_api {
 
     /**
@@ -38,8 +41,8 @@ class quiz_answersheets_external extends external_api {
      */
     public static function create_attempt_parameters() {
         return new external_function_parameters([
-                'quizid' => new external_value(PARAM_INT, 'Quiz Id'),
-                'userid' => new external_value(PARAM_INT, 'User Id')
+            'quizid' => new external_value(PARAM_INT, 'Quiz Id'),
+            'userid' => new external_value(PARAM_INT, 'User Id'),
         ]);
     }
 
@@ -50,9 +53,9 @@ class quiz_answersheets_external extends external_api {
      */
     public static function create_attempt_returns() {
         return new external_single_structure([
-                'success' => new external_value(PARAM_BOOL, 'success: true/false'),
-                'message' => new external_value(PARAM_TEXT, 'response message'),
-                'id' => new external_value(PARAM_INT, 'ID of new attempt if success.')
+            'success' => new external_value(PARAM_BOOL, 'success: true/false'),
+            'message' => new external_value(PARAM_TEXT, 'response message'),
+            'id' => new external_value(PARAM_INT, 'ID of new attempt if success.'),
         ]);
     }
 
@@ -68,8 +71,8 @@ class quiz_answersheets_external extends external_api {
         $message = '';
 
         $params = self::validate_parameters(self::create_attempt_parameters(), [
-                'quizid' => $quizid,
-                'userid' => $userid
+            'quizid' => $quizid,
+            'userid' => $userid,
         ]);
 
         list($course, $cm) = get_course_and_cm_from_instance($params['quizid'], 'quiz');
@@ -165,12 +168,12 @@ class quiz_answersheets_external extends external_api {
      */
     public static function create_event_parameters() {
         return new external_function_parameters([
-                'attemptid' => new external_value(PARAM_INT, 'Attempt Id'),
-                'userid' => new external_value(PARAM_INT, 'User Id'),
-                'courseid' => new external_value(PARAM_INT, 'Course Id'),
-                'cmid' => new external_value(PARAM_INT, 'Context module Id'),
-                'quizid' => new external_value(PARAM_INT, 'Quiz Id'),
-                'pagetype' => new external_value(PARAM_ALPHAEXT, 'Page type')
+            'attemptid' => new external_value(PARAM_INT, 'Attempt Id'),
+            'userid' => new external_value(PARAM_INT, 'User Id'),
+            'courseid' => new external_value(PARAM_INT, 'Course Id'),
+            'cmid' => new external_value(PARAM_INT, 'Context module Id'),
+            'quizid' => new external_value(PARAM_INT, 'Quiz Id'),
+            'pagetype' => new external_value(PARAM_ALPHAEXT, 'Page type'),
         ]);
     }
 
@@ -188,12 +191,12 @@ class quiz_answersheets_external extends external_api {
     public static function create_event($attemptid, $userid, $courseid, $cmid, $quizid, $pagetype) {
         $allowpagetypes = [utils::ATTEMPT_SHEET_PRINTED, utils::RIGHT_ANSWER_SHEET_PRINTED];
         $params = self::validate_parameters(self::create_event_parameters(), [
-                'attemptid' => $attemptid,
-                'userid' => $userid,
-                'courseid' => $courseid,
-                'cmid' => $cmid,
-                'quizid' => $quizid,
-                'pagetype' => $pagetype
+            'attemptid' => $attemptid,
+            'userid' => $userid,
+            'courseid' => $courseid,
+            'cmid' => $cmid,
+            'quizid' => $quizid,
+            'pagetype' => $pagetype,
         ]);
         if (!in_array($params['pagetype'], $allowpagetypes)) {
             throw new invalid_parameter_exception('Invalid pagetype event');

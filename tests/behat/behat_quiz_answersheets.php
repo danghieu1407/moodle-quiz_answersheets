@@ -83,7 +83,7 @@ class behat_quiz_answersheets extends behat_question_base {
      */
     protected function get_quiz_by_name(string $name): stdClass {
         global $DB;
-        return $DB->get_record('quiz', array('name' => $name), '*', MUST_EXIST);
+        return $DB->get_record('quiz', ['name' => $name], '*', MUST_EXIST);
     }
 
     /**

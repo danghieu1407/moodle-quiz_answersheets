@@ -62,18 +62,17 @@ class qtype_combined_override_renderer extends \qtype_combined_renderer {
         $questiontext = $question->format_questiontext($qa);
 
         // Modification starts.
-        /* Comment out core code.
-        $questiontext = $question->combiner->render_subqs($questiontext, $qa, $options);
-        */
+        // Comment out core code.
+//        $questiontext = $question->combiner->render_subqs($questiontext, $qa, $options);
+        //
         $questiontext = $this->render_subqs($questiontext, $qa, $options);
         // Modification ends.
 
-        $result = html_writer::tag('div', $questiontext, array('class' => 'qtext'));
+        $result = html_writer::tag('div', $questiontext, ['class' => 'qtext']);
 
         if ($qa->get_state() == question_state::$invalid) {
             $result .= html_writer::nonempty_tag('div',
-                    $question->get_validation_error($qa->get_last_step()->get_all_data()),
-                    array('class' => 'validationerror'));
+                $question->get_validation_error($qa->get_last_step()->get_all_data()), ['class' => 'validationerror']);
         }
         return $result;
     }
@@ -88,7 +87,7 @@ class qtype_combined_override_renderer extends \qtype_combined_renderer {
      */
     private function render_subqs($questiontext, question_attempt $qa, question_display_options $options) {
         // This will be an array $startpos => array('length' => $embedcodelen, 'replacement' => $html).
-        $replacements = array();
+        $replacements = [];
         $subqs = utils::get_reflection_property($qa->get_question()->combiner, 'subqs');
 
         // Modification starts.
@@ -101,9 +100,9 @@ class qtype_combined_override_renderer extends \qtype_combined_renderer {
             $currentpos = 0;
             foreach ($embedcodes as $placeno => $embedcode) {
                 // Modification starts.
-                /* Comment out core code.
-                $renderedembeddedquestion = $subq->type->embedded_renderer()->subquestion($qa, $options, $subq, $placeno);
-                */
+                // Comment out core code.
+//                $renderedembeddedquestion = $subq->type->embedded_renderer()->subquestion($qa, $options, $subq, $placeno);
+                //
                 $embeddedrenderer = $this->get_embedded_renderer($subq->type);
                 $renderedembeddedquestion = $embeddedrenderer->subquestion($qa, $options, $subq, $placeno);
                 // Modification ends.
@@ -115,7 +114,7 @@ class qtype_combined_override_renderer extends \qtype_combined_renderer {
                             ' code not found in question text ' . $questiontext);
                 }
                 $embedcodelen = strlen($embedcode);
-                $replacements[$pos] = array('length' => $embedcodelen, 'replacement' => $renderedembeddedquestion);
+                $replacements[$pos] = ['length' => $embedcodelen, 'replacement' => $renderedembeddedquestion];
                 $questiontext = substr_replace($questiontext,
                         str_repeat('X', $embedcodelen), $pos, $embedcodelen);
                 $currentpos = $pos + $embedcodelen;
@@ -175,40 +174,38 @@ class qtype_oumultiresponse_embedded_override_renderer extends \qtype_oumultires
         $fullresponse = new qtype_combined_response_array_param($qa->get_last_qt_data());
         $response = $fullresponse->for_subq($subq);
 
-        $commonattributes = array(
-                'type' => 'checkbox'
-        );
+        $commonattributes = ['type' => 'checkbox'];
 
         if ($options->readonly) {
             $commonattributes['disabled'] = 'disabled';
         }
 
-        $checkboxes = array();
-        $feedbackimg = array();
-        $classes = array();
+        $checkboxes = [];
+        $feedbackimg = [];
+        $classes = [];
         foreach ($question->get_order($qa) as $value => $ansid) {
             $inputname = $qa->get_qt_field_name($subq->step_data_name('choice'.$value));
             $ans = $question->answers[$ansid];
-            $inputattributes = array();
+            $inputattributes = [];
             $inputattributes['name'] = $inputname;
             $inputattributes['value'] = 1;
             $inputattributes['id'] = $inputname;
             // Modification starts.
-            /* Comment out core code.
-            $isselected = $question->is_choice_selected($response, $value);
-            if ($isselected) {
-                $inputattributes['checked'] = 'checked';
-            }
-            */
+            // Comment out core code.
+//            $isselected = $question->is_choice_selected($response, $value);
+//            if ($isselected) {
+//                $inputattributes['checked'] = 'checked';
+//            }
+            //
             $inputattributes['checked'] = 'checked';
             // Modification ends.
             $hidden = '';
             if (!$options->readonly) {
-                $hidden = html_writer::empty_tag('input', array(
-                        'type' => 'hidden',
-                        'name' => $inputattributes['name'],
-                        'value' => 0,
-                ));
+                $hidden = html_writer::empty_tag('input', [
+                    'type' => 'hidden',
+                    'name' => $inputattributes['name'],
+                    'value' => 0,
+                ]);
             }
 
             $checkboxes[] = html_writer::empty_tag('input', $inputattributes + $commonattributes) .
@@ -246,10 +243,10 @@ class qtype_oumultiresponse_embedded_override_renderer extends \qtype_oumultires
 
         foreach ($checkboxes as $key => $checkbox) {
             $cbhtml .= html_writer::tag($inputwraptag, $checkbox . ' ' . $feedbackimg[$key],
-                            array('class' => $classes[$key])) . "\n";
+                ['class' => $classes[$key]]) . "\n";
         }
 
-        $result = html_writer::tag($inputwraptag, $cbhtml, array('class' => 'answer'));
+        $result = html_writer::tag($inputwraptag, $cbhtml, ['class' => 'answer']);
 
         return $result;
     }
@@ -283,7 +280,7 @@ class qtype_combined_gapselect_embedded_override_renderer extends \qtype_combine
         $group = $question->places[$place];
 
         $orderedchoices = $question->get_ordered_choices($group);
-        $selectoptions = array();
+        $selectoptions = [];
         foreach ($orderedchoices as $orderedchoicevalue => $orderedchoice) {
             $selectoptions[$orderedchoicevalue] = $orderedchoice->text;
         }

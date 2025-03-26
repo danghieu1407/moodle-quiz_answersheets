@@ -21,7 +21,7 @@ use mod_oucontent\task\export_all;
 /**
  * List of available exported content from courses.
  *
- * @package mod_oucontent
+ * @package quiz_answersheets
  * @copyright 2024 The Open University
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -34,9 +34,15 @@ class export_all_list implements \renderable, \core\output\named_templatable {
      *
      * @param \stored_file[] $list List of files, indexed by course id
      */
-    public function __construct(protected array $list) {
+    public function __construct(
+        /**
+         * List of files, indexed by course id
+         *
+         * @var \stored_file[]
+         */
+        protected array $list
+    ) {
     }
-
     #[\Override]
     public function get_template_name(\renderer_base $renderer): string {
         return 'mod_oucontent/export_all_list';

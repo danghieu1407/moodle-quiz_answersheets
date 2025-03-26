@@ -146,8 +146,8 @@ class renderer extends plugin_renderer_base {
         $output .= html_writer::end_tag('form');
 
         $langstring = [
-                'title' => get_string('confirmation', 'admin'),
-                'body' => get_string('submit_student_responses_dialog_content', 'quiz_answersheets')
+            'title' => get_string('confirmation', 'admin'),
+            'body' => get_string('submit_student_responses_dialog_content', 'quiz_answersheets'),
         ];
 
         $this->page->requires->js_call_amd('quiz_answersheets/submit_student_responses', 'init', ['lang' => $langstring]);
@@ -169,12 +169,12 @@ class renderer extends plugin_renderer_base {
      */
     public function render_print_button(quiz_attempt $attemptobj, bool $isrightanswer): string {
         $data = [
-                'attemptid' => $attemptobj->get_attemptid(),
-                'userid' => $attemptobj->get_userid(),
-                'courseid' => $attemptobj->get_courseid(),
-                'cmid' => $attemptobj->get_cmid(),
-                'quizid' => $attemptobj->get_quizid(),
-                'pagetype' => $isrightanswer ? utils::RIGHT_ANSWER_SHEET_PRINTED : utils::ATTEMPT_SHEET_PRINTED
+            'attemptid' => $attemptobj->get_attemptid(),
+            'userid' => $attemptobj->get_userid(),
+            'courseid' => $attemptobj->get_courseid(),
+            'cmid' => $attemptobj->get_cmid(),
+            'quizid' => $attemptobj->get_quizid(),
+            'pagetype' => $isrightanswer ? utils::RIGHT_ANSWER_SHEET_PRINTED : utils::ATTEMPT_SHEET_PRINTED,
         ];
 
         $this->page->requires->js_call_amd('quiz_answersheets/print', 'init', [$data]);
@@ -195,10 +195,10 @@ class renderer extends plugin_renderer_base {
             string $sheettype, report_display_options $reportoptions): string {
         $quizrenderer = $this->page->get_renderer('mod_quiz');
         $templatecontext = [
-                'questionattemptheader' => utils::get_attempt_sheet_print_header($attemptobj, $sheettype, $reportoptions),
-                'questionattemptsumtable' => $quizrenderer->review_attempt_summary(
-                    attempt_summary_information::create_from_legacy_array($sumdata), 0),
-                'questionattemptcontent' => $this->render_question_attempt_content($attemptobj, $reportoptions)
+            'questionattemptheader' => utils::get_attempt_sheet_print_header($attemptobj, $sheettype, $reportoptions),
+            'questionattemptsumtable' => $quizrenderer->review_attempt_summary(
+                attempt_summary_information::create_from_legacy_array($sumdata), 0),
+            'questionattemptcontent' => $this->render_question_attempt_content($attemptobj, $reportoptions),
         ];
         $isgecko = \core_useragent::is_gecko();
         // We need to use specific layout for Gecko because it does not fully support display flex and table.
@@ -301,8 +301,17 @@ class renderer extends plugin_renderer_base {
  */
 class core_question_override_renderer extends \core_question_renderer {
 
+    /**
+     * Render the question.
+     *
+     * @param question_attempt $qa The question attempt.
+     * @param qbehaviour_renderer $behaviouroutput The behaviour renderer.
+     * @param qtype_renderer $qtoutput The question type renderer.
+     * @param question_display_options $options The display options.
+     * @return string The HTML.
+     */
     protected function formulation(question_attempt $qa, qbehaviour_renderer $behaviouroutput, qtype_renderer $qtoutput,
-            question_display_options $options) {
+            question_display_options $options): string {
         global $attemptobj;
         // We need to use global trick here because in mod/quiz/report/answersheets/submitresponses.php:23
         // already loaded the attemptobj so we no need to do the extra Database query.
@@ -326,7 +335,14 @@ class core_question_override_renderer extends \core_question_renderer {
         return $output;
     }
 
-    protected function status(question_attempt $qa, qbehaviour_renderer $behaviouroutput, question_display_options $options) {
+    /**
+     * Render the question instruction.
+     *
+     * @param question_attempt $qa Question attempt
+     * @return string HTML string
+     */
+    protected function status(question_attempt $qa, qbehaviour_renderer $behaviouroutput,
+            question_display_options $options): string {
         // Do not show the question status.
         return '';
     }
@@ -383,8 +399,18 @@ class core_question_override_renderer extends \core_question_renderer {
         return $output;
     }
 
+    /**
+     * Render the question.
+     *
+     * @param question_attempt $qa The question attempt.
+     * @param qbehaviour_renderer $behaviouroutput The behaviour renderer.
+     * @param qtype_renderer $qtoutput The question type renderer.
+     * @param question_display_options $options The display options.
+     * @param int $number The question number.
+     * @return string The HTML.
+     */
     public function question(question_attempt $qa, qbehaviour_renderer $behaviouroutput, qtype_renderer $qtoutput,
-            question_display_options $options, $number) {
+            question_display_options $options, $number): string {
         $rightanswer = $this->page->url->get_param('rightanswer');
         $output = '';
         $output .= parent::question($qa, $behaviouroutput, $qtoutput, $options, $number);

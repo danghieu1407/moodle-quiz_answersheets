@@ -46,7 +46,12 @@ if (class_exists('\mod_quiz\local\reports\attempts_report_options_form')) {
  */
 class report_settings_form extends \mod_quiz_attempts_report_form_parent_class_alias {
 
-    protected function other_preference_fields(MoodleQuickForm $mform) {
+    /**
+     * Add the custom fields to the form.
+     *
+     * @param MoodleQuickForm $mform The form.
+     */
+    protected function other_preference_fields(MoodleQuickForm $mform): void {
         $field = report_display_options::possible_user_info_visibility_settings($this->_customdata['quiz']->cmobject);
 
         $userinfogroup = [];
@@ -55,8 +60,7 @@ class report_settings_form extends \mod_quiz_attempts_report_form_parent_class_a
                     report_display_options::user_info_visibility_settings_name($name));
             $mform->setDefault('show' . $name, 1);
         }
-        $mform->addGroup($userinfogroup, 'userinfo',
-                get_string('showuserinfo', 'quiz_answersheets'), array(' '), false);
+        $mform->addGroup($userinfogroup, 'userinfo', get_string('showuserinfo', 'quiz_answersheets'), [' '], false);
 
         $instructionandmarkedcheckboxes = [];
         $instructionandmarkedcheckboxes[] = $mform->createElement('advcheckbox', 'questioninstruction',

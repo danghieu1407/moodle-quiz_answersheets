@@ -17,7 +17,7 @@
 /**
  * View and download script for the all-SC export files.
  *
- * @package mod_oucontent
+ * @package quiz_answersheets
  * @copyright 2024 The Open University
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

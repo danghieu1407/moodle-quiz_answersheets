@@ -23,7 +23,7 @@ use core_availability\tree_node;
 /**
  * Scheduled task that exports all XML into per course zip files.
  *
- * @package mod_oucontent
+ * @package quiz_answersheets
  * @copyright 2024 The Open University
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -73,7 +73,7 @@ class export_all extends \core\task\scheduled_task {
      * @param string $tempfolder Root directory for temporary storage
      * @param bool $output True to show output text using mtrace
      */
-    public static function process_course(int $courseid, string $tempfolder, $output = false) : void {
+    public static function process_course(int $courseid, string $tempfolder, $output = false): void {
         global $DB;
 
         $config = get_config('oucontent');
@@ -275,7 +275,7 @@ class export_all extends \core\task\scheduled_task {
      * @param string $filename Desired filename
      * @return string Filename with all strange characters replaced by underlines
      */
-    public static function get_filename_safe(string $filename) : string {
+    public static function get_filename_safe(string $filename): string {
         return preg_replace('~[^A-Za-z0-9_\-]~u', '_', $filename);
     }
 

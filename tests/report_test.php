@@ -13,7 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
  * Tests for the quiz answer sheet report.
  *
@@ -21,8 +20,7 @@
  * @copyright 2019 The Open University
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
+namespace quiz_answersheets;
 
 /**
  * Tests for the quiz answer sheet report.
@@ -32,7 +30,7 @@ defined('MOODLE_INTERNAL') || die();
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers \quiz_answersheets\utils::get_question_instruction
  */
-class report_test extends advanced_testcase {
+final class report_test extends \advanced_testcase {
 
     /**
      * Test get_question_instruction function.
@@ -41,9 +39,9 @@ class report_test extends advanced_testcase {
      * @param string $questiontype Question type name.
      * @param string $expectedinstruction Expected instruction for question.
      */
-    public function test_get_question_instruction(string $questiontype, string $expectedinstruction) {
+    public function test_get_question_instruction(string $questiontype, string $expectedinstruction): void {
         $this->resetAfterTest();
-        if (question_bank::is_qtype_installed($questiontype)) {
+        if (\question_bank::is_qtype_installed($questiontype)) {
             $instruction = \quiz_answersheets\utils::get_question_instruction($questiontype);
             $this->assert_same_instruction($expectedinstruction, $instruction);
         } else {
@@ -56,7 +54,7 @@ class report_test extends advanced_testcase {
      *
      * @return array List of test cases
      */
-    public static function get_question_instruction_cases() {
+    public static function get_question_instruction_cases(): array {
         return [
             [
                 'coderunner',

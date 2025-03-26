@@ -19,7 +19,7 @@ namespace mod_oucontent\event;
 /**
  * Export downloaded event. Only admins should download the export-all zips.
  *
- * @package mod_oucontent
+ * @package quiz_answersheets
  * @copyright 2024 The Open University
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
