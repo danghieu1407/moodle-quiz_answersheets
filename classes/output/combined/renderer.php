@@ -62,8 +62,9 @@ class qtype_combined_override_renderer extends \qtype_combined_renderer {
         $questiontext = $question->format_questiontext($qa);
 
         // Modification starts.
-        // Comment out core code.
-        /*$questiontext = $question->combiner->render_subqs($questiontext, $qa, $options); */
+        /* Comment out core code.
+        $questiontext = $question->combiner->render_subqs($questiontext, $qa, $options);
+        */
 
         $questiontext = $this->render_subqs($questiontext, $qa, $options);
         // Modification ends.
@@ -100,9 +101,8 @@ class qtype_combined_override_renderer extends \qtype_combined_renderer {
             $currentpos = 0;
             foreach ($embedcodes as $placeno => $embedcode) {
                 // Modification starts.
-                // Comment out core code.
-                /*$renderedembeddedquestion = $subq->type->embedded_renderer()->subquestion($qa,
-                    $options, $subq, $placeno);
+                /* Comment out core code.
+                $renderedembeddedquestion = $subq->type->embedded_renderer()->subquestion($qa, $options, $subq, $placeno);
                 */
                 $embeddedrenderer = $this->get_embedded_renderer($subq->type);
                 $renderedembeddedquestion = $embeddedrenderer->subquestion($qa, $options, $subq, $placeno);
@@ -192,8 +192,8 @@ class qtype_oumultiresponse_embedded_override_renderer extends \qtype_oumultires
             $inputattributes['value'] = 1;
             $inputattributes['id'] = $inputname;
             // Modification starts.
-            // Comment out core code.
-            /* $isselected = $question->is_choice_selected($response, $value);
+            /* Comment out core code.
+            $isselected = $question->is_choice_selected($response, $value);
             if ($isselected) {
                 $inputattributes['checked'] = 'checked';
             }

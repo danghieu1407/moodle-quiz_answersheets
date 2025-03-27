@@ -101,8 +101,8 @@ class qtype_multichoice_override_renderer extends \qtype_multichoice_single_rend
             // oumultiresponse question type. It would be good to refactor to
             // avoid refering to it here.
             // Modification starts.
-            // Comment out core code.
-            /*if ($options->feedback && empty($options->suppresschoicefeedback) &&
+            /* Comment out core code.
+            if ($options->feedback && empty($options->suppresschoicefeedback) &&
                     $isselected && trim($ans->feedback)) {
             */
 

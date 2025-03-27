@@ -123,8 +123,8 @@ class qtype_stack_override_renderer extends \qtype_stack_renderer {
             $state = $question->get_input_state($name, $response);
 
             // Modification starts.
-            // Comment out core code.
-            /*$questiontext = str_replace("[[input:{$name}]]",
+            /* Comment out core code.
+            $questiontext = str_replace("[[input:{$name}]]",
                     $input->render($state, $fieldname, $options->readonly, $tavalue),
                     $questiontext);
             */
