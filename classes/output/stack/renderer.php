@@ -124,9 +124,10 @@ class qtype_stack_override_renderer extends \qtype_stack_renderer {
 
             // Modification starts.
             // Comment out core code.
-            // $questiontext = str_replace("[[input:{$name}]]",
-            // $input->render($state, $fieldname, $options->readonly, $tavalue),
-            //$questiontext);
+            /*$questiontext = str_replace("[[input:{$name}]]",
+                    $input->render($state, $fieldname, $options->readonly, $tavalue),
+                    $questiontext);
+            */
             if (get_class($input) == 'stack_dropdown_input') {
                 $questiontext = str_replace("[[input:{$name}]]", $this->render_choices($input), $questiontext);
             } else {

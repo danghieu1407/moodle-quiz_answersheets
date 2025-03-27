@@ -73,13 +73,14 @@ class qtype_oumultiresponse_override_renderer extends \qtype_oumultiresponse_ren
             $inputattributes['id'] = $this->get_input_id($qa, $value);
             // Modification starts.
             // Comment out core code.
-            // $isselected = $question->is_choice_selected($response, $value);
-            // if ($isselected) {
-            // $inputattributes['checked'] = 'checked';
-            // } else {
-            // unset($inputattributes['checked']);
-            // }
-
+            /*
+            $isselected = $question->is_choice_selected($response, $value);
+            if ($isselected) {
+                $inputattributes['checked'] = 'checked';
+            } else {
+                unset($inputattributes['checked']);
+            }
+            */
             $inputattributes['checked'] = 'checked';
             // Modification ends.
             $hidden = '';
@@ -104,8 +105,8 @@ class qtype_oumultiresponse_override_renderer extends \qtype_oumultiresponse_ren
             // oumultiresponse question type. It would be good to refactor to
             // avoid refering to it here.
             // Modification starts.
-            /* Comment out core code.
-            if ($options->feedback && empty($options->suppresschoicefeedback) &&
+            // Comment out core code.
+            /* if ($options->feedback && empty($options->suppresschoicefeedback) &&
                     $isselected && trim($ans->feedback)) {
             */
             if ($options->feedback && empty($options->suppresschoicefeedback) &&

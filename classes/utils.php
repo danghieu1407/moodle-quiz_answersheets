@@ -115,8 +115,9 @@ class utils {
                     'title' => $userpicture,
                     'content' => new action_link(new moodle_url('/user/view.php', [
                         'id' => $student->id,
-                        'course' => $attemptobj->get_courseid()
-                    ]), fullname($student, true))
+                        'course' => $attemptobj->get_courseid(),
+                    ],
+                    ), fullname($student, true))
                 ];
             }
         }

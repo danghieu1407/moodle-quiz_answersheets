@@ -102,8 +102,9 @@ class qtype_multichoice_override_renderer extends \qtype_multichoice_single_rend
             // avoid refering to it here.
             // Modification starts.
             // Comment out core code.
-            // if ($options->feedback && empty($options->suppresschoicefeedback) &&
-            // $isselected && trim($ans->feedback)) {
+            /*if ($options->feedback && empty($options->suppresschoicefeedback) &&
+                    $isselected && trim($ans->feedback)) {
+            */
 
             if ($options->feedback && empty($options->suppresschoicefeedback) &&
                     trim($ans->feedback)) {
