@@ -39,42 +39,45 @@
         "awards": []
     }
 }}
-<li>
-    <a href="{{downloadurl}}"
-        data-shortname="{{shortname}}"
-        data-lastpublished="{{lastpublishedtime}}"
-        data-sizebytes="{{sizebytes}}"
-        {{#haspresentations}}data-presentations="{{#presentations}}{{modulepres}} {{/presentations}}"{{/haspresentations}}
-        {{#hasawards}}data-awards="{{#awards}}{{awardcode}} {{/awards}}"{{/hasawards}}
-        {{#hidden}}data-hidden="true"{{/hidden}}
-        {{#inrecyclebin}}data-inrecyclebin="true"{{/inrecyclebin}}
-    >
-        <span>{{shortname}}</span>
-        <span>({{size}})</span>
-    </a>
-    <div class="oucontent-lastpublished">
-        {{#userdate}}{{lastpublished}}, {{#str}}strftimedatetimeshort, langconfig{{/str}}{{/userdate}}
-    </div>
-    {{#haspresentations}}
-        <ul class="oucontent-presentations">
-            {{#presentations}}
-                <li>{{modulepres}}</li>
-            {{/presentations}}
-        </ul>
-    {{/haspresentations}}
-    {{#hasawards}}
-        <ul class="oucontent-awards">
-            {{#awards}}
-                <li>{{awardcode}}</li>
-            {{/awards}}
-        </ul>
-    {{/hasawards}}
-    <div class="oucontent-details">
-        {{#hidden}}
-            <span>{{#str}}hiddenfromstudents{{/str}}.</span>
-        {{/hidden}}
-        {{#inrecyclebin}}
-            <span>{{#str}}exportallinrecyclebin, mod_oucontent{{/str}}.</span>
-        {{/inrecyclebin}}
-    </div>
-</li>
+<ul>
+    <li>
+        <a href="{{downloadurl}}"
+            data-shortname="{{shortname}}"
+            data-lastpublished="{{lastpublishedtime}}"
+            data-sizebytes="{{sizebytes}}"
+            {{#haspresentations}}data-presentations="{{#presentations}}{{modulepres}} {{/presentations}}"{{/haspresentations}}
+            {{#hasawards}}data-awards="{{#awards}}{{awardcode}} {{/awards}}"{{/hasawards}}
+            {{#hidden}}data-hidden="true"{{/hidden}}
+            {{#inrecyclebin}}data-inrecyclebin="true"{{/inrecyclebin}}
+            {{#hidden}}class="hidden"{{/hidden}}
+            {{#inrecyclebin}}class="inrecyclebin"{{/inrecyclebin}}>
+            <span>{{shortname}}</span>
+            <span>({{size}})</span>
+        </a>
+        <div class="oucontent-lastpublished">
+            {{#userdate}}{{lastpublished}}, {{#str}}strftimedatetimeshort, langconfig{{/str}}{{/userdate}}
+        </div>
+        {{#haspresentations}}
+            <ul class="oucontent-presentations">
+                {{#presentations}}
+                    <li>{{modulepres}}</li>
+                {{/presentations}}
+            </ul>
+        {{/haspresentations}}
+        {{#hasawards}}
+            <ul class="oucontent-awards">
+                {{#awards}}
+                    <li>{{awardcode}}</li>
+                {{/awards}}
+            </ul>
+        {{/hasawards}}
+        <div class="oucontent-details">
+            {{#hidden}}
+                <span>{{#str}}hiddenfromstudents{{/str}}.</span>
+            {{/hidden}}
+            {{#inrecyclebin}}
+                <span>{{#str}}exportallinrecyclebin, mod_oucontent{{/str}}.</span>
+            {{/inrecyclebin}}
+        </div>
+    </li>
+</ul>

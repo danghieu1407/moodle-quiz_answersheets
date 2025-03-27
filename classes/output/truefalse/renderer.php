@@ -129,7 +129,7 @@ class qtype_truefalse_override_renderer extends \qtype_truefalse_renderer {
             );
         $radiofalse = html_writer::empty_tag('input', $falseattributes) .
             html_writer::tag('label', $choicefalse, [
-                'for' => $trueattributes['id'],
+                'for' => $falseattributes['id'],
                 'class' => 'd-flex w-auto ml-1',
             ]);
 
