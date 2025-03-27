@@ -105,9 +105,10 @@ class qtype_oumultiresponse_override_renderer extends \qtype_oumultiresponse_ren
             // oumultiresponse question type. It would be good to refactor to
             // avoid refering to it here.
             // Modification starts.
-            // Comment out core code.
-            /* if ($options->feedback && empty($options->suppresschoicefeedback) &&
-                    $isselected && trim($ans->feedback)) {
+            // The original code was:
+            /*
+            if ($options->feedback && empty($options->suppresschoicefeedback) &&
+                $isselected && trim($ans->feedback)) {
             */
             if ($options->feedback && empty($options->suppresschoicefeedback) &&
                     trim($ans->feedback)) {
