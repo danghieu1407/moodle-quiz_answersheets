@@ -80,7 +80,6 @@ class qtype_match_override_renderer extends \qtype_match_renderer {
             $result .= html_writer::tag('td', $this->format_stem_text($qa, $stemid), ['class' => 'text']);
 
             $classes = 'control';
-            $feedbackimage = '';
 
             if (array_key_exists($fieldname, $response)) {
                 $selected = $response[$fieldname];

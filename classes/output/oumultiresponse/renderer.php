@@ -50,7 +50,6 @@ class qtype_oumultiresponse_override_renderer extends \qtype_oumultiresponse_ren
      */
     public function formulation_and_controls(question_attempt $qa, question_display_options $options) {
         $question = $qa->get_question();
-        $response = $question->get_response($qa);
 
         $inputname = $qa->get_qt_field_name('answer');
         $inputattributes = [

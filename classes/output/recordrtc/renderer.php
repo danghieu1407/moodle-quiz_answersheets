@@ -142,11 +142,11 @@ class qtype_recordrtc_override_renderer extends \qtype_recordrtc_renderer {
 
         $audioelements = $doc->getElementsByTagName('audio');
         $videoselements = $doc->getElementsByTagName('video');
-        $mediacollectionelements = $finder->query("//a[contains(concat(' ', normalize-space(@class), ' '), 'atto_oulinktofile')]");
+        $mediacolelems = $finder->query("//a[contains(concat(' ', normalize-space(@class), ' '), 'atto_oulinktofile')]");
 
         $interactiveelements = array_merge($interactiveelements, iterator_to_array($audioelements));
         $interactiveelements = array_merge($interactiveelements, iterator_to_array($videoselements));
-        $interactiveelements = array_merge($interactiveelements, iterator_to_array($mediacollectionelements));
+        $interactiveelements = array_merge($interactiveelements, iterator_to_array($mediacolelems));
 
         foreach ($interactiveelements as $interactiveelement) {
             $fragment = $doc->createDocumentFragment();

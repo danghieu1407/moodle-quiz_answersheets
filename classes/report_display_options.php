@@ -128,7 +128,7 @@ class report_display_options extends attempts_report_options {
      * @param stdClass $fromform the form data.
      */
     public function process_settings_from_form($fromform): void {
-        foreach ($this->userinfovisibility as $name => $notused) {
+        foreach (array_keys($this->userinfovisibility) as $name) {
             // Unused field of userinfovisibility in filter form should not be added to report link.
             $this->userinfovisibility[$name] = !empty($fromform->{'show' . $name});
         }
@@ -195,7 +195,7 @@ class report_display_options extends attempts_report_options {
      */
     protected function parse_user_info_visibility(string $combined): void {
         $fields = explode('-', $combined);
-        foreach ($this->userinfovisibility as $name => $notused) {
+        foreach (array_keys($this->userinfovisibility) as $name) {
             $this->userinfovisibility[$name] = in_array($name, $fields);
         }
     }

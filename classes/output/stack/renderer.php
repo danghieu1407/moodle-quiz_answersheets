@@ -89,10 +89,10 @@ class qtype_stack_override_renderer extends \qtype_stack_renderer {
         $inputstovaldiate = [];
 
         // Get the list of placeholders before format_text.
-        $originalinputplaceholders = array_unique(stack_utils::extract_placeholders($questiontext, 'input'));
-        sort($originalinputplaceholders);
-        $originalfeedbackplaceholders = array_unique(stack_utils::extract_placeholders($questiontext, 'feedback'));
-        sort($originalfeedbackplaceholders);
+        $inputplaceholders = array_unique(stack_utils::extract_placeholders($questiontext, 'input'));
+        sort($inputplaceholders);
+        $feedbackplaceholders = array_unique(stack_utils::extract_placeholders($questiontext, 'feedback'));
+        sort($feedbackplaceholders);
 
         // Now format the questiontext.
         $questiontext = $question->format_text(
@@ -101,17 +101,17 @@ class qtype_stack_override_renderer extends \qtype_stack_renderer {
                 $qa, 'question', 'questiontext', $question->id);
 
         // Get the list of placeholders after format_text.
-        $formatedinputplaceholders = stack_utils::extract_placeholders($questiontext, 'input');
-        sort($formatedinputplaceholders);
-        $formatedfeedbackplaceholders = stack_utils::extract_placeholders($questiontext, 'feedback');
-        sort($formatedfeedbackplaceholders);
+        $fmtinputph = stack_utils::extract_placeholders($questiontext, 'input');
+        sort($fmtinputph);
+        $fmtfbplaceholders = stack_utils::extract_placeholders($questiontext, 'feedback');
+        sort($fmtfbplaceholders);
 
         // We need to check that if the list has changed.
         // Have we lost some of the placeholders entirely?
         // Duplicates may have been removed by multi-lang,
         // No duplicates should remain.
-        if ($formatedinputplaceholders !== $originalinputplaceholders ||
-                $formatedfeedbackplaceholders !== $originalfeedbackplaceholders) {
+        if ($fmtinputph !== $inputplaceholders ||
+                $fmtfbplaceholders !== $feedbackplaceholders) {
             throw new coding_exception('Inconsistent placeholders. Possibly due to multi-lang filtter not being active.');
         }
 
@@ -197,7 +197,7 @@ class qtype_stack_override_renderer extends \qtype_stack_renderer {
         $quizprintingrenderer = $this->page->get_renderer('quiz_answersheets');
         $answer = utils::get_reflection_property($input, 'ddlvalues');
 
-        foreach ($answer as $key => $value) {
+        foreach (array_keys($answer) as $key) {
             if ($answer[$key]['display']) {
                 $choices[] = $answer[$key]['display'];
             }

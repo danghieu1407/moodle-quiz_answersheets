@@ -63,8 +63,6 @@ class behat_quiz_answersheets extends behat_question_base {
      * @throws Exception with a meaningful error message if the specified page cannot be found.
      */
     protected function resolve_page_instance_url(string $type, string $identifier): moodle_url {
-        global $DB;
-
         switch ($type) {
             case 'Report':
                 return new moodle_url('/mod/quiz/report.php',

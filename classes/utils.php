@@ -86,7 +86,7 @@ class utils {
     public static function prepare_summary_attempt_information(quiz_attempt $attemptobj,
             bool $minimal, report_display_options $reportoptions): array {
 
-        global $CFG, $DB;
+        global $DB;
 
         $sumdata = [];
         $attempt = $attemptobj->get_attempt();
@@ -374,7 +374,6 @@ class utils {
             report_display_options $reportoptions): string {
         $generatedtime = time();
         $attemptuser = \core_user::get_user($attemptobj->get_userid());
-        $context = context_module::instance((int) $attemptobj->get_cmid());
 
         $headerinfo = new \stdClass();
         $headerinfo->courseshortname = $attemptobj->get_course()->shortname;

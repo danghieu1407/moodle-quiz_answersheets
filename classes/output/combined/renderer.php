@@ -105,7 +105,7 @@ class qtype_combined_override_renderer extends \qtype_combined_renderer {
                 $renderedembeddedquestion = $subq->type->embedded_renderer()->subquestion($qa, $options, $subq, $placeno);
                 */
                 $embeddedrenderer = $this->get_embedded_renderer($subq->type);
-                $renderedembeddedquestion = $embeddedrenderer->subquestion($qa, $options, $subq, $placeno);
+                $renderedembedq = $embeddedrenderer->subquestion($qa, $options, $subq, $placeno);
                 // Modification ends.
 
                 // Now replace the first occurrence of the placeholder.
@@ -115,7 +115,7 @@ class qtype_combined_override_renderer extends \qtype_combined_renderer {
                             ' code not found in question text ' . $questiontext);
                 }
                 $embedcodelen = strlen($embedcode);
-                $replacements[$pos] = ['length' => $embedcodelen, 'replacement' => $renderedembeddedquestion];
+                $replacements[$pos] = ['length' => $embedcodelen, 'replacement' => $renderedembedq];
                 $questiontext = substr_replace($questiontext,
                         str_repeat('X', $embedcodelen), $pos, $embedcodelen);
                 $currentpos = $pos + $embedcodelen;
@@ -172,9 +172,6 @@ class qtype_oumultiresponse_embedded_override_renderer extends \qtype_oumultires
     public function subquestion(question_attempt $qa, question_display_options $options, qtype_combined_combinable_base $subq,
             $placeno) {
         $question = $subq->question;
-        $fullresponse = new qtype_combined_response_array_param($qa->get_last_qt_data());
-        $response = $fullresponse->for_subq($subq);
-
         $commonattributes = ['type' => 'checkbox'];
 
         if ($options->readonly) {
@@ -200,16 +197,6 @@ class qtype_oumultiresponse_embedded_override_renderer extends \qtype_oumultires
             */
 
             $inputattributes['checked'] = 'checked';
-            // Modification ends.
-            $hidden = '';
-            if (!$options->readonly) {
-                $hidden = html_writer::empty_tag('input', [
-                    'type' => 'hidden',
-                    'name' => $inputattributes['name'],
-                    'value' => 0,
-                ]);
-            }
-
             $checkboxes[] = html_writer::empty_tag('input', $inputattributes + $commonattributes) .
                     html_writer::tag('label',
                             html_writer::span(

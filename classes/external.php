@@ -67,7 +67,6 @@ class quiz_answersheets_external extends external_api {
      * @return array
      */
     public static function create_attempt($quizid, $userid) {
-        global $USER, $DB;
         $message = '';
 
         $params = self::validate_parameters(self::create_attempt_parameters(), [
@@ -106,14 +105,32 @@ class quiz_answersheets_external extends external_api {
     }
 
     /**
+     * Prepare and start a new online quiz attempt.
+     */
+    public static function quiz_prepare_and_start_new_attempt(quiz $quizobj, $attemptnumber, $lastattempt,
+           $forcedrandqs = [], $forcedvariants = [], $userid = null) {
+        return self::prepare_and_start_attempt_internal($quizobj, $attemptnumber, $lastattempt,
+            false, $forcedrandqs, $forcedvariants, $userid);
+    }
+
+    /**
+     * Prepare and start a new offline quiz attempt.
+     */
+    public static function quiz_prepare_and_start_new_offline_attempt(quiz $quizobj, $attemptnumber, $lastattempt,
+           $forcedrandqs = [], $forcedvariants = [], $userid = null) {
+        return self::prepare_and_start_attempt_internal($quizobj, $attemptnumber, $lastattempt,
+            true, $forcedrandqs, $forcedvariants, $userid);
+    }
+
+    /**
      * Prepare and start a new attempt deleting the previous preview attempts.
      * @todo MDL-66633 When we move to Moodle 3.8, use quiz_prepare_and_start_new_attempt in mod/quiz/locallib.php.
      *
      * @param quiz $quizobj quiz object
      * @param int $attemptnumber the attempt number
      * @param object $lastattempt last attempt object
-     * @param bool $offlineattempt whether is an offline attempt or not
-     * @param array $forcedrandomquestions slot number => question id. Used for random questions,
+     * @param bool $isoffline whether is an offline attempt or not
+     * @param array $forcedrandqs slot number => question id. Used for random questions,
      *      to force the choice of a particular actual question. Intended for testing purposes only.
      * @param array $forcedvariants slot number => variant. Used for questions with variants,
      *      to force the choice of a particular variant. Intended for testing purposes only.
@@ -121,8 +138,8 @@ class quiz_answersheets_external extends external_api {
      * @return object the new attempt
      * @since  Moodle 3.1
      */
-    public static function quiz_prepare_and_start_new_attempt(quiz $quizobj, $attemptnumber, $lastattempt,
-            $offlineattempt = false, $forcedrandomquestions = [], $forcedvariants = [], $userid = null) {
+    private static function prepare_and_start_attempt_internal(quiz $quizobj, $attemptnumber, $lastattempt,
+            $isoffline, $forcedrandqs, $forcedvariants, $userid) {
         global $DB, $USER;
 
         if ($userid === null) {
@@ -143,7 +160,7 @@ class quiz_answersheets_external extends external_api {
 
         if (!($quizobj->get_quiz()->attemptonlast && $lastattempt)) {
             $attempt = quiz_start_new_attempt($quizobj, $quba, $attempt, $attemptnumber, $timenow,
-                    $forcedrandomquestions, $forcedvariants);
+                $forcedrandqs, $forcedvariants);
         } else {
             $attempt = quiz_start_attempt_built_on_last($quba, $attempt, $lastattempt);
         }
@@ -151,7 +168,7 @@ class quiz_answersheets_external extends external_api {
         $transaction = $DB->start_delegated_transaction();
 
         // Init the timemodifiedoffline for offline attempts.
-        if ($offlineattempt) {
+        if ($isoffline) {
             $attempt->timemodifiedoffline = $attempt->timemodified;
         }
         $attempt = quiz_attempt_save_started($quizobj, $quba, $attempt);

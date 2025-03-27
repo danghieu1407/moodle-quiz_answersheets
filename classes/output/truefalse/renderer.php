@@ -72,8 +72,6 @@ class qtype_truefalse_override_renderer extends \qtype_truefalse_renderer {
         }
 
         // Work out which radio button to select (if any).
-        $truechecked = false;
-        $falsechecked = false;
         $responsearray = [];
         if ($response) {
             $trueattributes['checked'] = 'checked';

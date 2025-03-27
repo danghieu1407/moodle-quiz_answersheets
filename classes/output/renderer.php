@@ -279,7 +279,7 @@ class renderer extends plugin_renderer_base {
         if (!empty($choices)) {
             if (!$inline) {
                 $output .= html_writer::start_tag('ul', ['class' => 'answer-list']);
-                foreach ($choices as $value => $choice) {
+                foreach ($choices as $choice) {
                     $output .= html_writer::tag('li', $choice);
                 }
                 $output .= html_writer::end_tag('ul');
@@ -431,7 +431,7 @@ class core_question_override_renderer extends \core_question_renderer {
     public function render_question_combined_feedback(question_attempt $qa) {
         $feedback = '';
         $incorrectfeedback = $this->get_combine_feedback($qa, 'incorrect');
-        $partiallycorrectfeedback = $this->get_combine_feedback($qa, 'partiallycorrect');
+        $partialfeedback = $this->get_combine_feedback($qa, 'partiallycorrect');
         $correctfeedback = $this->get_combine_feedback($qa, 'correct');
         $generalfeedback = $qa->get_question()->format_generalfeedback($qa);
 
@@ -440,10 +440,10 @@ class core_question_override_renderer extends \core_question_renderer {
                     ['class' => 'question-feedback-title']);
             $feedback .= \html_writer::div($incorrectfeedback, 'question-feedback-content');
         }
-        if (!empty($partiallycorrectfeedback)) {
+        if (!empty($partialfeedback)) {
             $feedback .= \html_writer::tag('h3', get_string('combine_feedback_partially_correct', 'quiz_answersheets'),
                     ['class' => 'question-feedback-title']);
-            $feedback .= \html_writer::div($partiallycorrectfeedback, 'question-feedback-content');
+            $feedback .= \html_writer::div($partialfeedback, 'question-feedback-content');
         }
         if (!empty($correctfeedback)) {
             $feedback .= \html_writer::tag('h3', get_string('combine_feedback_correct', 'quiz_answersheets'),

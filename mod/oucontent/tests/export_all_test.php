@@ -87,8 +87,6 @@ final class export_all_test extends \advanced_testcase {
         $subpage1 = $generator->create_module('oustudyplansubpage',
             ['course' => $course->id, 'section' => 0]);
         \format_oustudyplan\sections::create_owned($course, $subpage1->cmid);
-        $subpage2 = $generator->create_module('oustudyplansubpage',
-            ['course' => $course->id, 'section' => 0, 'visible' => 0]);
 
         // Ensure the sections are all in correct order (0, subpage1 1 and 2, subpage2 3).
         \format_oustudyplan\sections::rearrange_sections(course_get_format($course));
@@ -142,25 +140,11 @@ final class export_all_test extends \advanced_testcase {
             'xmlfile' => 'minimal.xml',
         ]);
         \mod_oucontent\util::fix_time(1200);
-        $doc2 = $oucontentgenerator->create_instance([
-            'course' => $course->id,
-            'section' => 0,
-            'visible' => 0,
-        ], [
-            'xmlfile' => 'numbering.xml',
-        ]);
         \mod_oucontent\util::fix_time(1100);
-        $doc3 = $oucontentgenerator->create_instance([
-            'course' => $course->id,
-            'section' => 1,
-        ], [
-            'xmlfile' => 'search.xml',
-        ]);
 
         $sectionids = $DB->get_records_menu('course_sections', ['course' => $course->id], fields: 'section, id');
 
         rebuild_course_cache($course->id);
-        $modinfo = get_fast_modinfo($course->id);
 
         // Get the details.
         $details = export_all::get_course_details($course->id);

@@ -221,7 +221,7 @@ class quiz_answersheets_report extends attempts_report {
             $headers[] = '';
         }
 
-        foreach ($options->userinfovisibility as $field => $show) {
+        foreach (array_keys($options->userinfovisibility) as $field) {
             if ($field === 'fullname') {
                 if (!$table->is_downloading()) {
                     $columns[] = 'fullname';
