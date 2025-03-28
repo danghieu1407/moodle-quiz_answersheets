@@ -24,17 +24,17 @@
 
 $string['admin_instruction_message'] = 'Instruction message';
 $string['admin_instruction_message_des'] = 'If set, this text will be shown at the top of the report. You can use this, for example, to link to any institutional policies about printing summative quizzes.';
+$string['answer_sheet_label'] = 'Right answer sheet';
 $string['answersheets'] = 'Export attempts';
 $string['answersheetsfilename'] = 'Exportable_quiz_attempts';
-$string['answer_sheet_label'] = 'Right answer sheet';
-$string['answersheetsreport'] = 'Export quiz attempts';
 $string['answersheets:bulkdownload'] = 'Download review sheet in bulk';
 $string['answersheets:componentname'] = 'Export quiz attempts';
 $string['answersheets:createattempt'] = 'Create an attempt for another user';
+$string['answersheetsreport'] = 'Export quiz attempts';
 $string['answersheets:submitresponses'] = 'Submit student responses';
 $string['answersheets:view'] = 'View attempt sheet';
-$string['answersheets:viewrightanswers'] = 'View right answer sheet';
 $string['answer_sheet_title'] = '{$a->courseshortname} - {$a->quizname} - Answer sheet';
+$string['answersheets:viewrightanswers'] = 'View right answer sheet';
 $string['attempt_sheet_label'] = 'Attempt sheet';
 $string['attempt_sheet_title'] = '{$a->courseshortname} - {$a->quizname} - Attempt sheet';
 $string['bulkdownloadlink'] = 'Download review sheets in bulk';
@@ -85,13 +85,13 @@ $string['ddmarker_instruction'] = 'Mark the points on the image and write the le
 After the item is the maximum number of times it can be used. e.g. (1) means that the item can be used once, (2) means twice etc. An asterisk (*) means that the items’ use is unlimited.';
 $string['ddwtos_instruction'] = 'Write the letter of the corresponding answer (A, B, C, D, ...) in the space provided.
 After the item is the maximum number of times it can be used. e.g. (1) means that the item can be used once, (2) means twice etc. An asterisk (*) means that the items’ use is unlimited.';
+$string['essay_instruction'] = 'Write your answer in the space provided.';
 $string['event_attempt_created'] = 'Quiz attempt created for user';
 $string['event_attempt_printed'] = 'Quiz attempt sheet printed';
 $string['event_attempt_viewed'] = 'Quiz attempt sheet viewed';
 $string['event_responses_submitted'] = 'Quiz responses submitted for user';
 $string['event_right_answer_printed'] = 'Quiz right answer sheet printed';
 $string['event_right_answer_viewed'] = 'Quiz right answer sheet viewed';
-$string['essay_instruction'] = 'Write your answer in the space provided.';
 $string['examcode'] = 'Confirmation code';
 $string['gapselect_instruction'] = 'Write the letter of the corresponding answer (A, B, C, D, ...) in the space provided.';
 $string['interactive_content_warning'] = 'Interactive content is not available in this format.';
