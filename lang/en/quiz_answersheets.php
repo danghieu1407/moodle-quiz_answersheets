@@ -22,20 +22,20 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['answersheets'] = 'Export attempts';
-$string['answersheetsfilename'] = 'Exportable_quiz_attempts';
-$string['answersheetsreport'] = 'Export quiz attempts';
 $string['admin_instruction_message'] = 'Instruction message';
 $string['admin_instruction_message_des'] = 'If set, this text will be shown at the top of the report. You can use this, for example, to link to any institutional policies about printing summative quizzes.';
+$string['answersheets'] = 'Export attempts';
+$string['answersheetsfilename'] = 'Exportable_quiz_attempts';
+$string['answer_sheet_label'] = 'Right answer sheet';
+$string['answersheetsreport'] = 'Export quiz attempts';
 $string['answersheets:bulkdownload'] = 'Download review sheet in bulk';
 $string['answersheets:componentname'] = 'Export quiz attempts';
 $string['answersheets:createattempt'] = 'Create an attempt for another user';
 $string['answersheets:submitresponses'] = 'Submit student responses';
 $string['answersheets:view'] = 'View attempt sheet';
 $string['answersheets:viewrightanswers'] = 'View right answer sheet';
-$string['answer_sheet_label'] = 'Right answer sheet';
-$string['attempt_sheet_label'] = 'Attempt sheet';
 $string['answer_sheet_title'] = '{$a->courseshortname} - {$a->quizname} - Answer sheet';
+$string['attempt_sheet_label'] = 'Attempt sheet';
 $string['attempt_sheet_title'] = '{$a->courseshortname} - {$a->quizname} - Attempt sheet';
 $string['bulkdownloadlink'] = 'Download review sheets in bulk';
 $string['bulkinstructions'] = 'To be able to download review sheets in bulk, you need the
